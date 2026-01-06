@@ -1,1 +1,22 @@
 This is first command
+commands                    | Description
+pwd                         | It is used to show the current location in the file system.
+mkdir                       | It is used to create a new folder in the specified location.
+ls                          | It is used to display all files and folders in the current directory
+cd                          | It is used to change the current directory.
+touch                       | It is used to create a new file.
+echo                        | It is used to write data into files using the following formats
+                                  overwrite->echo "">filename
+                                  update-> echo "">>filename
+cat                         | It is used to view the data inside a given file.
+cp                          | It is used to copy files. The format is
+                                  cp filelocation1 filelocation2
+rm                          | It is used to remove a file
+add .                       | It is used to add all files to the staging area.
+commit                      | It is used to save (hold) the changes.
+push                        | It is used to push local changes to the global branch.
+status                      | It is used to check untracked files.
+log                         | It is used to check the logs of committed files.
+clear                       | It is used to clear the terminal.
+revert                      | It is used to revert the code to a previous state.
+rebase                      | It is used to apply the commit history of one branch onto another branch.
