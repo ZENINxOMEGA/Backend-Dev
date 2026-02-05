@@ -7,7 +7,7 @@ app.use(express.json());
 
 // sample users data (temporary DB samajh lo)
 const users = [
-  { id: 1, name: "Satvik", branch: "CSE", subjects: ["Math", "Science"] },
+  { id: 1, name: "Aniket", branch: "CSE", subjects: ["Math", "Science"] },
   { id: 2, name: "Jane", branch: "ECE", subjects: ["English", "History"] },
   { id: 3, name: "Doe", branch: "CSE", subjects: ["Art", "PE"] },
   { id: 4, name: "Max", branch: "ME", subjects: ["Thermo", "Design"] }
