@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Satvik",
+    "branch": "CSE",
+    "subjects": [
+      "Math",
+      "Science"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Jane",
+    "branch": "ECE",
+    "subjects": [
+      "English",
+      "History"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Max",
+    "branch": "ME",
+    "subjects": [
+      "Thermo",
+      "Design"
+    ]
+  }
+]
