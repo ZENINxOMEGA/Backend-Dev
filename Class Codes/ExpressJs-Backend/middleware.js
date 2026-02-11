@@ -21,29 +21,18 @@ app.use(async (req, res, next) => {
   }
 });
 
-
-app.use((req, res, next) => {
-  console.log("I am middleware 1");
-  next();
-});
-
-
-
-
-app.use((req,res,next)=>{
-    console.log("I am middleware 2");
-    next();
-});
-
-// const fileAuthMiddleware = (req, res, next) => {
-//     console.log("I am checking file access");
-//     return res.send("Auth Failed");
-// };
+/*
+const fileAuthMiddleware = (req, res, next) => {
+    console.log("I am checking file access");
+    return res.send("Auth Failed");
+};
+*/
 
 const auth_Middleware = ((req, res, next) => {
     const token = req.header("Authorization"); // singular
 
     if (token === "123") {
+        console.log("Authenticication succesfull");
         
         next();
        
