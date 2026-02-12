@@ -2,41 +2,43 @@
    Import required modules
 ========================================= */
 
-const express = require("express");      // Express framework for creating server
-const fs = require("fs").promises;       // File system with promises (async/await support)
+const express = require("express");      // Express framework (server + routing)
+const fs = require("fs").promises;       // File system with promise support (async/await)
 
 
 /* =========================================
-   App & Server Configuration
+   Initialize Express App
 ========================================= */
 
-const app = express();   // Create express application
+const app = express();   // Create express app instance
 const PORT = 8000;       // Server will run on port 8000
 
 
-// Middleware to automatically parse JSON body from requests
-// Example: req.body will work
+// Middleware to parse JSON request body
+// Without this, req.body will be undefined
 app.use(express.json());
 
 
+
 /* =========================================
-   GLOBAL MIDDLEWARES
+   -------- Middleware Section --------
 ========================================= */
 
 
-/* ---------- 1. Logging Middleware ----------
-   👉 Har request ko log.txt file me store karega
-   👉 Helps in debugging & tracking API calls
+/* ---------- Logging Middleware ----------
+   👉 Every request gets logged into log.txt
+   👉 Useful for debugging & tracking API usage
+   👉 Runs for ALL routes because app.use()
 */
 app.use(async (req, res, next) => {
   try {
 
-    // Log format: Date - Method - URL
+    // Create log message (date + method + URL)
     const log = `${new Date().toString()} - ${req.method} - ${req.url}\n`;
 
-    // Append means add at end (overwrite nahi karega)
+    // Append log into file (does not overwrite)
     await fs.appendFile("log.txt", log);
-
+    
     // Pass control to next middleware/route
     next();
 
@@ -49,8 +51,8 @@ app.use(async (req, res, next) => {
 });
 
 
-/* ---------- Example Middleware (commented) ----------
-   Just for demo purpose
+/* ---------- Example Dummy Middleware (commented) ----------
+   Just for understanding middleware concept
 */
 /*
 const fileAuthMiddleware = (req, res, next) => {
@@ -60,53 +62,52 @@ const fileAuthMiddleware = (req, res, next) => {
 */
 
 
-/* ---------- 2. Authentication Middleware ----------
-   👉 Authorization header check karega
-   👉 Token match hua toh allow
-   👉 warna 401 Unauthorized
+/* ---------- Authentication Middleware ----------
+   👉 Checks Authorization header
+   👉 If token = "123" → allow request
+   👉 else → block with 401 Unauthorized
 */
-const auth_Middleware = (req, res, next) => {
+const auth_Middleware = ((req, res, next) => {
 
-    // Get token from request header
+    // Read token from header
     const token = req.header("Authorization");
 
-    // Simple hardcoded token check
     if (token === "123") {
         console.log("Authentication successful");
 
-        // Allow request
+        // Allow request to continue
         next();
-
+       
     } else {
 
-        // Block request
+        // Stop request if token invalid
         res.status(401).send("Unauthorized");
     }
-};
+});
 
 
 
 /* =========================================
-   FILE HANDLING FUNCTIONS
+   -------- File Handling Functions --------
 ========================================= */
 
 
-/* ---------- Read Students ----------
-   👉 users.json read karega
-   👉 JSON parse karega
-   👉 Agar file exist nahi karti toh create karega
+/* ---------- Read Students Function ----------
+   👉 Reads users.json
+   👉 Converts JSON string → JS array
+   👉 If file doesn't exist → create empty file
 */
 const readStudentsFromFile = async () => {
   try {
 
     const data = await fs.readFile("users.json", "utf-8");
 
-    // Convert JSON string → JS array
+    // Return parsed data
     return JSON.parse(data || "[]");
 
   } catch (err) {
 
-    // If file not found, create empty array file
+    // If file not found, create new empty file
     await fs.writeFile("users.json", "[]");
 
     return [];
@@ -114,41 +115,37 @@ const readStudentsFromFile = async () => {
 };
 
 
-/* ---------- Write Students ----------
-   👉 Updated records ko file me save karega
-   👉 Pretty format (indentation = 2 spaces)
+/* ---------- Write Students Function ----------
+   👉 Writes updated student list to file
+   👉 null,2 → pretty formatting (indentation)
 */
 const writeStudentsToFile = async (records) => {
-
-  await fs.writeFile(
-    "users.json",
-    JSON.stringify(records, null, 2)
-  );
+  await fs.writeFile("users.json", JSON.stringify(records, null, 2));
 };
 
 
 
 /* =========================================
-   ROUTES
+   -------- Routes Section --------
 ========================================= */
 
 
 /* ---------- GET /students ----------
-   👉 All students list return karega
-   👉 Protected route (authentication required)
+   👉 Protected route (requires authentication)
+   👉 Returns all students from users.json
 */
 app.get("/students", auth_Middleware, async (req, res) => {
-
   try {
 
-    // Read students from file
+    // Fetch students from file
     const students = await readStudentsFromFile();
 
-    // Send as JSON response
+    // Send students as JSON response
     res.status(200).json(students);
 
   } catch (err) {
 
+    // If any error occurs
     res.status(500).json({
       message: "Error reading students",
     });
@@ -158,11 +155,10 @@ app.get("/students", auth_Middleware, async (req, res) => {
 
 
 /* =========================================
-   START SERVER
+   -------- Start Server --------
 ========================================= */
 
+// Start server and listen on defined port
 app.listen(PORT, () => {
-
   console.log(`🚀 Server is listening on ${PORT}`);
-
 });
