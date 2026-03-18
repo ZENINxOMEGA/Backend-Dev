@@ -1,0 +1,451 @@
+use college
+switched to db college
+show collections
+students
+db.students.insertMany([
+  { name: "Rahul Sharma", age: 20, city: "Delhi", course: "BTech" },
+  { name: "Priya Verma", age: 21, city: "Mumbai", course: "BCA" },
+  { name: "Amit Singh", age: 22, city: "Lucknow", course: "BSc" },
+  { name: "Sneha Gupta", age: 20, city: "Jaipur", course: "BTech" }
+])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69ba738b17e98c9e7a6ec554'),
+    '1': ObjectId('69ba738b17e98c9e7a6ec555'),
+    '2': ObjectId('69ba738b17e98c9e7a6ec556'),
+    '3': ObjectId('69ba738b17e98c9e7a6ec557')
+  }
+}
+db.students.find()
+{
+  _id: ObjectId('69b2a261654ecd17be7c2907'),
+  name: 'Aniket',
+  age: 21,
+  course: 'CSE'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec554'),
+  name: 'Rahul Sharma',
+  age: 20,
+  city: 'Delhi',
+  course: 'BTech'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec555'),
+  name: 'Priya Verma',
+  age: 21,
+  city: 'Mumbai',
+  course: 'BCA'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec556'),
+  name: 'Amit Singh',
+  age: 22,
+  city: 'Lucknow',
+  course: 'BSc'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec557'),
+  name: 'Sneha Gupta',
+  age: 20,
+  city: 'Jaipur',
+  course: 'BTech'
+}
+db.students.find().pretty()
+{
+  _id: ObjectId('69b2a261654ecd17be7c2907'),
+  name: 'Aniket',
+  age: 21,
+  course: 'CSE'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec554'),
+  name: 'Rahul Sharma',
+  age: 20,
+  city: 'Delhi',
+  course: 'BTech'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec555'),
+  name: 'Priya Verma',
+  age: 21,
+  city: 'Mumbai',
+  course: 'BCA'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec556'),
+  name: 'Amit Singh',
+  age: 22,
+  city: 'Lucknow',
+  course: 'BSc'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec557'),
+  name: 'Sneha Gupta',
+  age: 20,
+  city: 'Jaipur',
+  course: 'BTech'
+}
+db.students.find({ city: "Delhi" })
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec554'),
+  name: 'Rahul Sharma',
+  age: 20,
+  city: 'Delhi',
+  course: 'BTech'
+}
+db.students.find({ course: "BTech" })
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec554'),
+  name: 'Rahul Sharma',
+  age: 20,
+  city: 'Delhi',
+  course: 'BTech'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec557'),
+  name: 'Sneha Gupta',
+  age: 20,
+  city: 'Jaipur',
+  course: 'BTech'
+}
+db.students.find({ age: { $gt: 20 } })
+{
+  _id: ObjectId('69b2a261654ecd17be7c2907'),
+  name: 'Aniket',
+  age: 21,
+  course: 'CSE'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec555'),
+  name: 'Priya Verma',
+  age: 21,
+  city: 'Mumbai',
+  course: 'BCA'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec556'),
+  name: 'Amit Singh',
+  age: 22,
+  city: 'Lucknow',
+  course: 'BSc'
+}
+db.students.findOne({ name: "Priya Verma" })
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec555'),
+  name: 'Priya Verma',
+  age: 21,
+  city: 'Mumbai',
+  course: 'BCA'
+}
+db.students.updateOne(
+  { name: "Rahul Sharma" },
+  { $set: { age: 21 } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.students.deleteOne({ name: "Amit Singh" })
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.students.insertMany([
+  { name: "Rahul Sharma", age: 19, course: "BCA", city: "Delhi", feesPaid: true },
+  { name: "Amit Singh", age: 23, course: "BTech", city: "Lucknow", feesPaid: false },
+  { name: "Priya Verma", age: 21, course: "BCA", city: "Mumbai", feesPaid: true },
+  { name: "Rahul Sharma", age: 24, course: "MCA", city: "Jaipur", feesPaid: false }, // same name
+  { name: "Sneha Gupta", age: 22, course: "BSc", city: "Pune", feesPaid: true }
+])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69ba74da17e98c9e7a6ec558'),
+    '1': ObjectId('69ba74da17e98c9e7a6ec559'),
+    '2': ObjectId('69ba74da17e98c9e7a6ec55a'),
+    '3': ObjectId('69ba74da17e98c9e7a6ec55b'),
+    '4': ObjectId('69ba74da17e98c9e7a6ec55c')
+  }
+}
+db.students.find().pretty()
+{
+  _id: ObjectId('69b2a261654ecd17be7c2907'),
+  name: 'Aniket',
+  age: 21,
+  course: 'CSE'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec554'),
+  name: 'Rahul Sharma',
+  age: 21,
+  city: 'Delhi',
+  course: 'BTech'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec555'),
+  name: 'Priya Verma',
+  age: 21,
+  city: 'Mumbai',
+  course: 'BCA'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec557'),
+  name: 'Sneha Gupta',
+  age: 20,
+  city: 'Jaipur',
+  course: 'BTech'
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec558'),
+  name: 'Rahul Sharma',
+  age: 19,
+  course: 'BCA',
+  city: 'Delhi',
+  feesPaid: true
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec559'),
+  name: 'Amit Singh',
+  age: 23,
+  course: 'BTech',
+  city: 'Lucknow',
+  feesPaid: false
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55a'),
+  name: 'Priya Verma',
+  age: 21,
+  course: 'BCA',
+  city: 'Mumbai',
+  feesPaid: true
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55b'),
+  name: 'Rahul Sharma',
+  age: 24,
+  course: 'MCA',
+  city: 'Jaipur',
+  feesPaid: false
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55c'),
+  name: 'Sneha Gupta',
+  age: 22,
+  course: 'BSc',
+  city: 'Pune',
+  feesPaid: true
+}
+db.students.find({ course: "BCA" })
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec555'),
+  name: 'Priya Verma',
+  age: 21,
+  city: 'Mumbai',
+  course: 'BCA'
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec558'),
+  name: 'Rahul Sharma',
+  age: 19,
+  course: 'BCA',
+  city: 'Delhi',
+  feesPaid: true
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55a'),
+  name: 'Priya Verma',
+  age: 21,
+  course: 'BCA',
+  city: 'Mumbai',
+  feesPaid: true
+}
+db.students.find({ age: { $gt: 20 } })
+{
+  _id: ObjectId('69b2a261654ecd17be7c2907'),
+  name: 'Aniket',
+  age: 21,
+  course: 'CSE'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec554'),
+  name: 'Rahul Sharma',
+  age: 21,
+  city: 'Delhi',
+  course: 'BTech'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec555'),
+  name: 'Priya Verma',
+  age: 21,
+  city: 'Mumbai',
+  course: 'BCA'
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec559'),
+  name: 'Amit Singh',
+  age: 23,
+  course: 'BTech',
+  city: 'Lucknow',
+  feesPaid: false
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55a'),
+  name: 'Priya Verma',
+  age: 21,
+  course: 'BCA',
+  city: 'Mumbai',
+  feesPaid: true
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55b'),
+  name: 'Rahul Sharma',
+  age: 24,
+  course: 'MCA',
+  city: 'Jaipur',
+  feesPaid: false
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55c'),
+  name: 'Sneha Gupta',
+  age: 22,
+  course: 'BSc',
+  city: 'Pune',
+  feesPaid: true
+}
+db.students.find({}, { name: 1, course: 1, _id: 0 })
+{
+  name: 'Aniket',
+  course: 'CSE'
+}
+{
+  name: 'Rahul Sharma',
+  course: 'BTech'
+}
+{
+  name: 'Priya Verma',
+  course: 'BCA'
+}
+{
+  name: 'Sneha Gupta',
+  course: 'BTech'
+}
+{
+  name: 'Rahul Sharma',
+  course: 'BCA'
+}
+{
+  name: 'Amit Singh',
+  course: 'BTech'
+}
+{
+  name: 'Priya Verma',
+  course: 'BCA'
+}
+{
+  name: 'Rahul Sharma',
+  course: 'MCA'
+}
+{
+  name: 'Sneha Gupta',
+  course: 'BSc'
+}
+db.students.updateOne(
+  { name: "Priya Verma" },
+  { $set: { city: "Bangalore" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.students.updateMany(
+  { course: "BCA" },
+  { $set: { course: "MCA" } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+db.students.updateMany(
+  { age: { $gt: 22 } },
+  { $set: { feesPaid: true } }
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+db.students.deleteMany({ feesPaid: false })
+{
+  acknowledged: true,
+  deletedCount: 0
+}
+db.students.deleteMany({ age: { $lt: 20 } })
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.students.find().pretty()
+{
+  _id: ObjectId('69b2a261654ecd17be7c2907'),
+  name: 'Aniket',
+  age: 21,
+  course: 'CSE'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec554'),
+  name: 'Rahul Sharma',
+  age: 21,
+  city: 'Delhi',
+  course: 'BTech'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec555'),
+  name: 'Priya Verma',
+  age: 21,
+  city: 'Bangalore',
+  course: 'MCA'
+}
+{
+  _id: ObjectId('69ba738b17e98c9e7a6ec557'),
+  name: 'Sneha Gupta',
+  age: 20,
+  city: 'Jaipur',
+  course: 'BTech'
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec559'),
+  name: 'Amit Singh',
+  age: 23,
+  course: 'BTech',
+  city: 'Lucknow',
+  feesPaid: true
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55a'),
+  name: 'Priya Verma',
+  age: 21,
+  course: 'MCA',
+  city: 'Mumbai',
+  feesPaid: true
+}
+{
+  _id: ObjectId('69ba74da17e98c9e7a6ec55b'),
+  name: 'Rahul Sharma',
+  age: 24,
+  course: 'MCA',
+  city: 'Jaipur',
+  feesPaid: true
+}
